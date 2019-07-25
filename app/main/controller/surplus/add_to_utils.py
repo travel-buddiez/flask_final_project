@@ -1,22 +1,4 @@
 
-import datetime
-import jwt
-
-from .user import User
-from .. import db, bcrypt
-
-class Tcs(db.Model):
-
-    __tablename__ = "tcs"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    classification = db.Column(db.String(10), nullable=False)
-    created_on = db.Column(db.DateTime, nullable=False)
-    modified_on = db.Column(db.DateTime, nullable=True)
-    authored_by = db.Column(db.Foreignkey("users.id"), nullable=False)
-    content = db.Column(db.String(10000), nullable=False)
-
-
 class TcsDto:
     api = Namespace("tcs", description="tcs transfer object")
     tcs = api.model("tcs", {
@@ -59,31 +41,4 @@ class TcsUpdateDto:
     tcs = TcsDto.api.model("tcs_update", {
       "content": fields.String(required=True, description="content of the tcs")
       "classification": fields.String(required=True, description="the classification of Tabboo, Custom, or Suggestion")
-    })
-
-
-
-
-
-"""
-
-class TcsUpdateDto:
-    tcs = TcsDto.api.model("tcs_update", {
-      "id": fields.Integer(required=True, description="unique id for individual tcs object"),
-      "authored_by": fields.Integer(required=True, description="the unique user id associated with the tcs as an author")
-    })
-
-
-
-
-
-
-class TcsCreateDto:
-    tcs = TcsDto.api.model("tcs_create", {
-      "id": fields.Integer(required=True, description="unique id for individual tcs object"),
-      "authored_by": fields.Integer(required=True, description="the unique user id associated with the tcs as an author")
-      "created_on": fields.DateTime(required=True, description="time of tcs creation"),
-      "modified_on": fields.DateTime(required=False, description="time of tcs modification, if any")
-      "content": fields.String(required=True, description="content of the tcs")
-      "content": fields.String(required=True, description="contains the string of written text for the tcs")
     })

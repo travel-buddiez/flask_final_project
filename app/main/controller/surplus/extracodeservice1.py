@@ -1,4 +1,5 @@
-
+"""
+from flask import g
 from datetime import datetime
 from ** import db
 from **.models.surplus.extracode1 import Tcs
@@ -130,12 +131,29 @@ class Tcs(resource):
         tcs_id = g
         return tcs_service.return_single_tcs(tcs_id)
 
+    @api.doc("delete tcs by id")
+    @Authenticate
+    def delete(self, tcs_id):
+        if g.user.get("authored_by") != tcs_service.return_single_tcs(tcs_id).authored_by:
+            api.abort(401)
+        
+        return tcs_service.delete_tcs(authored_by)
+
+
+
+"""
+
+
+
+
 
 from flask_restplus import Api
 from flask import Blueprint
 
 from .src.controllers.tcs_controller import api as tcs_ns
 
+
+# app.__init__
 tcs_api = Blueprint("api", __name__)
 
 api = Api(tcs_api,
@@ -156,9 +174,11 @@ from flask_script import Manager
 from ..src import create_tcs, db
 from ..src.models import tcs
 
-from .. import tcs_api
+from app import tcs_api
 
 app = create_app(os.getenv("FLASK_ENV"))
+
+# manage.py
 app.register_blueprint(tcs_api)
 
 app.app_context().push()
@@ -183,22 +203,7 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+######################??????????
 
 class TcsCreate(Resource):
 
