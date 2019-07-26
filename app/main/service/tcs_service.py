@@ -12,7 +12,7 @@ def save_new_tcs(data):
         new_tcs = Tcs(
             tcs_id=str(something()),
             created_on=datetime.datetime.utcnow(),
-            authored_by=data["db.Foreignkey('users.id')"],
+            authored_by=data["db.Foreignkey('user.id')"],
             content=data["content"]
         )
         save_changes(new_tcs)
