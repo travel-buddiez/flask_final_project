@@ -8,7 +8,6 @@ class UserDto:
         'username': fields.String(required=True, description='user username'),
         'password': fields.String(required=True, description='user password'),
         'admin': fields.Boolean(required=False, description='Set user admin privilages'),
-        'public_id': fields.String(required=False, description='user public id')
     })
 
 
