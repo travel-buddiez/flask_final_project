@@ -130,6 +130,21 @@
 #         tcs_id = g
 #         return tcs_service.return_single_tcs(tcs_id)
 
+    @api.doc("delete tcs by id")
+    @Authenticate
+    def delete(self, tcs_id):
+        if g.user.get("authored_by") != tcs_service.return_single_tcs(tcs_id).authored_by:
+            api.abort(401)
+        
+        return tcs_service.delete_tcs(authored_by)
+
+
+
+"""
+
+
+
+
 
 # from flask_restplus import Api
 # from flask import Blueprint
@@ -183,22 +198,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+######################??????????
 
 # class TcsCreate(Resource):
 
