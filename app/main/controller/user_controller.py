@@ -35,6 +35,7 @@ class testing(Resource):
 class createUser(Resource):
 
     def post(self):
+        print('hit /')
         '''Creates a new User'''
         data = request.json
         return save_new_user(data=data)
