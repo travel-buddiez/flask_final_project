@@ -40,6 +40,7 @@ class User(db.Model):
                 'iat': datetime.datetime.utcnow(),
                 'sub': user_id
             }
+            print('returning token')
             return jwt.encode(
                 payload,
                 key,
