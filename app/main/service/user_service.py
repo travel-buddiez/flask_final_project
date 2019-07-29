@@ -8,27 +8,15 @@ from ..model.user import User
 def save_new_user(data):
     email = User.query.filter_by(email=data['email']).first()
     username = User.query.filter_by(username=data['username']).first()
-    print('save new user')
     if not email and not username:
-        if data['admin']:
-            print("admin")
-            new_user = User(
-                public_id=(str(uuid.uuid4())),
-                email=data['email'],
-                username=data['username'],
-                password=data['password'],
-                registered_on=datetime.datetime.utcnow(),
-                admin=data['admin']
-            )
-        else:
-            new_user = User(
-                public_id=(str(uuid.uuid4())),
-                email=data['email'],
-                username=data['username'],
-                password=data['password'],
-                registered_on=datetime.datetime.utcnow(),
-                admin=data['admin']
-            )
+        new_user = User(
+            public_id=(str(uuid.uuid4())),
+            email=data['email'],
+            username=data['username'],
+            password=data['password'],
+            registered_on=datetime.datetime.utcnow(),
+        )
+
 
         save_changes(new_user)
         response_object = {
