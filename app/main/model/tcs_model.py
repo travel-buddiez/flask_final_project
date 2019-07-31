@@ -11,8 +11,10 @@ class Tcs(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     classification = db.Column(db.String(10), nullable=False)
+    continent = db.Column(db.String(13), nullable=False)
+    country = db.Column(db.String(100), nullable=True)
+    state_province = db.Column(db.String(100), nullable=True)
     created_on = db.Column(db.DateTime, nullable=False)
     modified_on = db.Column(db.DateTime, nullable=True)
     authored_by = db.Column(db.ForeignKey("users.id"), nullable=False)
     content = db.Column(db.String(10000), nullable=False)
-

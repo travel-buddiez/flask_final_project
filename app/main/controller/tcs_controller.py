@@ -67,3 +67,41 @@ class Tcs(Resource):
         
         return tcs_service.delete_tcs(authored_by)
 
+
+@api.route("filter_continent")
+@api.response(404, "no tcs files have been found")
+class TcsListFilter(Resource):
+
+    @api.doc("list of continent_filtered tcs files")
+    @token_required
+    def get(self):
+        tcs_continent_filtered_list = tcs.service.return_tcs_of_continent()
+        if len(tcs_continent_filtered_list) == 0:
+            return {"status": "no tcs files have been found"}, 404
+        return marshal(tcs_continent_filtered_list, tcs)
+
+
+@api.route("filter_country")
+@api.response(404, "no tcs files have been found")
+class TcsListFilterCountry(Resource):
+
+    @api.doc("list of country_filtered tcs files")
+    @token_required
+    def get(self):
+        tcs_country_filtered_list = tcs.service.return_tcs_of_country()
+        if len(tcs_country_filtered_list) == 0:
+            return {"status": "no tcs files have been found"}, 404
+        return marshal(tcs_country_filtered_list, tcs)
+
+
+@api.route("filter_state_province")
+@api.response(404, "no tcs files have been found")
+class TcsListFilterState_Province(Resource):
+
+    @api.doc("list of state_province_filtered tcs files")
+    @token_required
+    def get(self):
+        tcs_state_province_filtered_list = tcs.service.return_tcs_of_state_province()
+        if len(tcs_state_province_filtered_list) == 0:
+            return {"status": "no tcs files have been found"}, 404
+        return marshal(tcs_state_province_filtered_list, tcs)
