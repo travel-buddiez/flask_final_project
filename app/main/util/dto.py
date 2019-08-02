@@ -26,7 +26,8 @@ class TcsDto:
       "authored_by": fields.Integer(required=True, description="the unique user id associated with the tcs as an author"),
       "created_on": fields.DateTime(description="time of tcs creation"),
       "classification": fields.String(required=True, description="the classification of Tabboo, Custom, or Suggestion"),
-      "continent": fields.String(required=True, description="the continent of the tcs object")
+      "continent": fields.String(required=True, description="the continent of the tcs object"),
+      "content": fields.String(required=True, description="content of the tcs"),
     })
 
 

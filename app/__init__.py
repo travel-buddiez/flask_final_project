@@ -22,4 +22,3 @@ api.add_namespace(user_ns, path='/user')
 api.add_namespace(auth_ns)
 api.add_namespace(tcs_ns, path="/tcs")
 api.add_namespace(review_ns, path="/review")
-
