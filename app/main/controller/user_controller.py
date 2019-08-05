@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask_restplus import Resource
 
-from ..util.dto import UserDto
+from ..util.dto import UserDto, AuthDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
 
 from ..util.decorator import admin_token_required, token_required
@@ -11,6 +11,7 @@ from ..api.continents import testingAPI
 
 api = UserDto.api
 _user = UserDto.user
+_auth = AuthDto.user_auth
 
 # create a parser for handling Authorization headers
 parser = api.parser()
@@ -153,6 +154,15 @@ class User(Resource):
         else:
             return user
 
+
+# @api.route('/me')
+# @api.response(404, 'User not found')
+# class Me(Resource):
+
+#     @api.expect(parser)
+#     @token_required
+#     def get(self):
+#         user = 
 
 @api.route('/test')
 class Test(Resource):
