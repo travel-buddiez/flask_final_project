@@ -16,6 +16,7 @@ tcsDetail = TcsDetailDto.tcs
 tcsUpdate = TcsUpdateDto.tcs
 tcs_of_id = Tcs_of_id.tcs
 
+
 user_api = UserDto.api
 parser = user_api.parser()
 parser.add_argument('Authorization', location='headers')
@@ -48,7 +49,6 @@ class TcsList(Resource):
 
 
 
-
 @api.route("/<tcs_id>")
 @api.param("tcs_id", "tcs unique id")
 @api.response(404, "Tcs not found")
@@ -77,7 +77,7 @@ class Tcs(Resource):
     def delete(self, tcs_id):
         if g.user.get("authored_by") != tcs_service.return_single_tcs(tcs_id).authored_by:
             api.abort(401)
-        
+
         return tcs_service.delete_tcs(authored_by)
 
 

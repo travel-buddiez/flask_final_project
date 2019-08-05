@@ -5,6 +5,8 @@ from ..util.dto import UserDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
 
 from ..util.decorator import admin_token_required, token_required
+from ..model import user
+from ..service.auth_helper import Auth
 
 from ..api.continents import testingAPI
 
@@ -23,6 +25,97 @@ class testing(Resource):
     def get(self):
         response_object = {
             'message': testingAPI,
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route("/me")
+class testing(Resource):
+
+    def get(self):
+        return (Auth.get_logged_in_user(request))
+
+
+@api.route('/testing/asia')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[1],
+            "Taboos of Asia": testingAPI[2],
+            "Customs of Asia": testingAPI[3],
+            "Suggestions for Asia": testingAPI[4],
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route('/testing/africa')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[11],
+            "Taboos of Africa": testingAPI[12],
+            "Customs of Africa": testingAPI[13],
+            "Suggestions for Africa": testingAPI[14],
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route('/testing/europe')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[16],
+            "Taboos of Europe": testingAPI[17],
+            "Customs of Europe": testingAPI[18],
+            "Suggestions for Europe": testingAPI[19],
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route('/testing/australia')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[21],
+            "Taboos of Australia": testingAPI[22],
+            "Customs of Australia": testingAPI[23],
+            "Suggestions for Australia": testingAPI[24],
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route('/testing/north_america')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[26],
+            "Taboos of North America": testingAPI[27],
+            "Customs of North America": testingAPI[28],
+            "Suggestions for North America": testingAPI[29],
+            'Response': 200
+        }
+        return response_object
+
+
+@api.route('/testing/south_america')
+class testing(Resource):
+
+    def get(self):
+        response_object = {
+            "Continent": testingAPI[31],
+            "Taboos of South America": testingAPI[32],
+            "Customs of South America": testingAPI[33],
+            "Suggestions for South America": testingAPI[34],
             'Response': 200
         }
         return response_object
