@@ -12,9 +12,9 @@ api = UserDto.api
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-
         try:
-            data, status = Auth.get_logged_in_user(request)
+            auth = request.headers.get('Authorization')
+            data, status = Auth.get_logged_in_user(auth)
             token = data.get('data')
         except Exception as e:
             response_object = {
@@ -29,7 +29,6 @@ def token_required(f):
                 'message': 'You must be logged in to access'
             }
             return response_object, 401
-
     return decorated
 
 
@@ -37,9 +36,9 @@ def token_required(f):
 def admin_token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-
         try:
-            data, status = Auth.get_logged_in_user(request)
+            auth = request.headers.get('Authorization')
+            data, status = Auth.get_logged_in_user(auth)
             token = data.get('data')
         except Exception as e:
             response_object = {
