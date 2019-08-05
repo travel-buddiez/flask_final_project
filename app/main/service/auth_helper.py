@@ -86,6 +86,7 @@ class Auth:
 
     @staticmethod
     def get_logged_in_user(auth_token):
+        
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
@@ -94,7 +95,9 @@ class Auth:
                     'status': 'success',
                     'data': {
                         'user_id': user.id,
+                        'name': user.name,
                         'email': user.email,
+                        'bio': user.bio,
                         'admin': user.admin,
                         'registered_on': str(user.registered_on)
                     }
@@ -104,6 +107,7 @@ class Auth:
                 'status': 'fail',
                 'message': resp
             }
+            print(" I'm A TEAPOT ")
             return response_object, 401
         else:
             response_object = {

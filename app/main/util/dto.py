@@ -10,6 +10,13 @@ class UserDto:
         'admin': fields.Boolean(required=False, description='Set user admin privilages'),
     })
 
+class UserUpdateDto:
+    user_update = UserDto.api.model("user_update", {
+      'username': fields.String(required=True, description='user username'),
+      'email': fields.String(required=True, description='user email'),
+      'bio': fields.String(required=True, description='user bio'),
+    })
+
 
 class AuthDto:
     api = Namespace('auth', description='authentication related operations')
