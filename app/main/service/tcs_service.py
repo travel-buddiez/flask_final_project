@@ -1,36 +1,36 @@
-
 from flask import g
+import uuid
 
 from datetime import datetime
 
 from app.main import db
 from app.main.model.tcs_model import Tcs
 
-def save_new_tcs(data):
-    ###user auth
-    if userauth:
+def create_tcs(data, user):
+    try:
+        user = user[0].get('data')
+        user_id = user.get('user_id')
         new_tcs = Tcs(
-            tcs_id=str(something()),
-            created_on=datetime.datetime.utcnow(),
-            authored_by=data["db.Foreignkey('user.id')"],
-            content=data["content"]
+            created_on=datetime.utcnow(),
+            content=data.get('content'),
+            classification=data.get('classification'),
+            continent=data.get('continent'),
+            authored_by=user_id
         )
+        print(new_tcs)
         save_changes(new_tcs)
         response_object = {
-            jsonify({
-                "status": "success",
-                "message": "entry successfully created"
-                })
+            "status": "success",
+            "message": "entry created"
         }
+        print(response_object)
         return response_object, 201
-    else:
+    except Exception as e:
         response_object = {
-            jsonify({
-                "status": "fail",
-                "message": "how did you get here"
-                })
+            "status": "fail",
+            "error": str(e)
         }
-        return response_object, 409
+        return response_object
 
 
 def return_all_tcs():
@@ -60,7 +60,7 @@ def edit_tcs(id, data):
         for key,item in data.items():
             setattr(tcs, key, item)
         tcs.modified_on = datetime.utcnow()
-        db.session.commit()
+####work on this        save_changes()
         response = {"status": "updated tcs"}
         return response, 200
     else:
@@ -79,5 +79,3 @@ def delete_tcs(id):
 def save_changes(data):
     db.session.add(data)
     db.session.commit()
-
-
