@@ -14,6 +14,7 @@ tcs_detail = TcsDetailDto.tcs
 tcs_update = TcsUpdateDto.tcs
 tcs_of_id = Tcs_of_id.tcs
 
+
 @api.route("whatever")
 @api.response(404, "no tcs files have been found")
 class TcsList(Resource):
@@ -33,8 +34,6 @@ class TcsList(Resource):
         data = request.json
         data["authored_by"] = g.user["authored_by"]
         return tcs_service.create_tcs(data=data)
-
-
 
 
 @api.route("<tcs_id>")
@@ -64,7 +63,7 @@ class Tcs(Resource):
     def delete(self, tcs_id):
         if g.user.get("authored_by") != tcs_service.return_single_tcs(tcs_id).authored_by:
             api.abort(401)
-        
+
         return tcs_service.delete_tcs(authored_by)
 
 
