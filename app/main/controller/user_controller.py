@@ -5,6 +5,8 @@ from ..util.dto import UserDto, AuthDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
 
 from ..util.decorator import admin_token_required, token_required
+from ..model import user
+from ..service.auth_helper import Auth
 
 from ..api.continents import testingAPI
 
@@ -27,6 +29,13 @@ class testing(Resource):
             'Response': 200
         }
         return response_object
+
+
+@api.route("/me")
+class testing(Resource):
+
+    def get(self):
+        return (Auth.get_logged_in_user(request))
 
 
 @api.route('/testing/asia')

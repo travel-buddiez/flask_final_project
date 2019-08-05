@@ -40,6 +40,15 @@ def return_all_tcs():
 def return_tcs_of_type():
     return Tcs.query.filter_by(classification=classification).all()
 
+def return_tcs_of_continent():
+    return Tcs.query.filter_by(continent=continent).all()
+
+def return_tcs_of_country():
+    return Tcs.query.filter_by(country=country).all()
+
+def return_tcs_of_state_province():
+    return Tcs.query.filter_by(state_province=state_province).all()
+
 
 def return_single_tcs(id):
     return Tcs.query.filter_by(id=id).first()
