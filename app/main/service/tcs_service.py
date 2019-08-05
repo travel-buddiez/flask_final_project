@@ -57,13 +57,12 @@ def return_single_tcs(id):
 
 
 ##################################################################################
-def edit_tcs(id, data):
+def edit_tcs(id, data, user):
     tcs_to_edit = return_single_tcs(id)
-    author_user = User.query.filter_by(id=id).first()
-    if tcs_to_delete.authored_by == author_user[0]['data']['user_id']:
+    if tcs_to_edit.authored_by == user[0]['data']['user_id']:
         for key,item in data.items():
-            setattr(tcs, key, item)
-        tcs.modified_on = datetime.utcnow()
+            setattr(tcs_to_edit, key, item)
+        tcs_to_edit.modified_on = datetime.utcnow()
         db.session.commit()
         response = {"status": "updated tcs"}
         return response, 201
