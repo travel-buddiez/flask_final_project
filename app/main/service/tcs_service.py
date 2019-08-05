@@ -5,6 +5,8 @@ from datetime import datetime
 
 from app.main import db
 from app.main.model.tcs_model import Tcs
+from app.main.model.user import User
+from .auth_helper import Auth
 
 def create_tcs(data, user):
     try:
@@ -54,22 +56,27 @@ def return_single_tcs(id):
     return Tcs.query.filter_by(id=id).first()
 
 
+##################################################################################
 def edit_tcs(id, data):
     tcs_to_edit = return_single_tcs(id)
-    if tcs:
+    author_user = User.query.filter_by(id=id).first()
+    if tcs_to_delete.authored_by == author_user[0]['data']['user_id']:
         for key,item in data.items():
             setattr(tcs, key, item)
         tcs.modified_on = datetime.utcnow()
-####work on this        save_changes()
+        db.session.commit()
         response = {"status": "updated tcs"}
-        return response, 200
+        return response, 201
     else:
-        return {"status": "tcs not found"}, 404
+        response = {"status": "error has occurred"}
+        return Tcs.query.get(id), response, 404
+###################################################################################
 
-def delete_tcs(id):
+def delete_tcs(id, auth):
     tcs_to_delete = return_single_tcs(id)
-    if tcs:
-        db.session.delete(tcs)
+    author_user = Auth.get_logged_in_user(auth)
+    if tcs_to_delete.authored_by == author_user[0]['data']['user_id']:
+        db.session.delete(tcs_to_delete)
         db.session.commit()
         return {"status": "no content"}, 204
     else:
@@ -79,3 +86,9 @@ def delete_tcs(id):
 def save_changes(data):
     db.session.add(data)
     db.session.commit()
+
+############################################################################
+# def _check_authored_by(user_id):
+#     author_user = User.query.filter_by(id=user_id).first()
+#     if author_user == 
+#         pass
