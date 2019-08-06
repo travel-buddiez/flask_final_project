@@ -13,7 +13,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     public_id = db.Column(db.String(100), unique=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    bio = db.Column(db.String(500), nullable=True)
+    bio = db.Column(db.Text(500), nullable=True)
     name = db.Column(db.String(25), nullable=False)
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
