@@ -19,9 +19,15 @@ class Tcs(db.Model):
     authored_by = db.Column(db.ForeignKey("user.id"), nullable=False)
     content = db.Column(db.String(10000), nullable=False)
 <<<<<<< HEAD
+<<<<<<< HEAD
     customs = db.Column(db.String(10000), nullable=True)
     taboos = db.Column(db.String(10000), nullable=True)
     suggestions = db.Column(db.String(10000), nullable=True)
 =======
 >>>>>>> 1821f1da969acee29e1e29c4d7149d5d00121b54
 
+=======
+    customs = db.Column(db.String(10000), nullable=True)
+    taboos = db.Column(db.String(10000), nullable=True)
+    suggestions = db.Column(db.String(10000), nullable=True)
+>>>>>>> 04080dadef175f692d84892857f37322170c5a40
