@@ -16,9 +16,12 @@ class Tcs(db.Model):
     state_province = db.Column(db.String(100), nullable=True)
     created_on = db.Column(db.DateTime, nullable=False)
     modified_on = db.Column(db.DateTime, nullable=True)
-    authored_by = db.Column(db.Integer, nullable=False)
+    authored_by = db.Column(db.ForeignKey("user.id"), nullable=False)
     content = db.Column(db.String(10000), nullable=False)
+<<<<<<< HEAD
     customs = db.Column(db.String(10000), nullable=True)
     taboos = db.Column(db.String(10000), nullable=True)
     suggestions = db.Column(db.String(10000), nullable=True)
+=======
+>>>>>>> 1821f1da969acee29e1e29c4d7149d5d00121b54
 

@@ -86,6 +86,7 @@ class Auth:
 
     @staticmethod
     def get_logged_in_user(auth_token):
+        
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
@@ -94,7 +95,10 @@ class Auth:
                     'status': 'success',
                     'data': {
                         'user_id': user.id,
+                        'name': user.name,
+                        'username': user.username,
                         'email': user.email,
+                        'bio': user.bio,
                         'admin': user.admin,
                         'registered_on': str(user.registered_on)
                     }
