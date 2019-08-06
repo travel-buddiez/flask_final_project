@@ -28,6 +28,9 @@ class TcsDto:
       "classification": fields.String(required=True, description="the classification of Tabboo, Custom, or Suggestion"),
       "continent": fields.String(required=True, description="the continent of the tcs object"),
       "content": fields.String(required=True, description="content of the tcs"),
+      "taboos": fields.String(required=True, description="content of the taboos"),
+      "customs": fields.String(required=True, description="content of the customs"),
+      "suggestions": fields.String(required=True, description="content of the suggestions")  
     })
 
 

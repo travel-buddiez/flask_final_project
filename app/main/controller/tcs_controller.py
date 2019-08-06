@@ -32,10 +32,6 @@ class TcsList(Resource):
     @api.expect(parser)
     def get(self):
         tcs_list = return_all_tcs()
-        print("I'm Here")
-        if len(tcs_list) == 0:
-            return {"status": "no tcs files have been found"}, 404
-        print(tcs_list)
         return tcs_list
 
     @api.doc("create new TCS entry")

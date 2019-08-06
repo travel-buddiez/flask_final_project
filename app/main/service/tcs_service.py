@@ -15,7 +15,10 @@ def create_tcs(data, user):
             content=data.get('content'),
             classification=data.get('classification'),
             continent=data.get('continent'),
-            authored_by=user_id
+            authored_by=user_id,
+            taboos=data.get('taboos'),
+            suggestions=data.get('suggestions'),
+            customs=data.get('customs')
         )
         print(new_tcs)
         save_changes(new_tcs)
