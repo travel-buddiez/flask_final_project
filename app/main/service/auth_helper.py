@@ -96,6 +96,7 @@ class Auth:
                     'data': {
                         'user_id': user.id,
                         'name': user.name,
+                        'username': user.username,
                         'email': user.email,
                         'bio': user.bio,
                         'admin': user.admin,
@@ -107,7 +108,6 @@ class Auth:
                 'status': 'fail',
                 'message': resp
             }
-            print(" I'm A TEAPOT ")
             return response_object, 401
         else:
             response_object = {
