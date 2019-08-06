@@ -8,27 +8,17 @@ from ..model.user import User
 def save_new_user(data):
     email = User.query.filter_by(email=data['email']).first()
     username = User.query.filter_by(username=data['username']).first()
-    print('save new user')
     if not email and not username:
-        if data['admin']:
-            print("admin")
-            new_user = User(
-                public_id=(str(uuid.uuid4())),
-                email=data['email'],
-                username=data['username'],
-                password=data['password'],
-                registered_on=datetime.datetime.utcnow(),
-                admin=data['admin']
-            )
-        else:
-            new_user = User(
-                public_id=(str(uuid.uuid4())),
-                email=data['email'],
-                username=data['username'],
-                password=data['password'],
-                registered_on=datetime.datetime.utcnow(),
-                admin=data['admin']
-            )
+        new_user = User(
+            public_id=(str(uuid.uuid4())),
+            name=data['name'],
+            email=data['email'],
+            username=data['username'],
+            bio=data['bio'],
+            password=data['password'],
+            registered_on=datetime.datetime.utcnow(),
+        )
+
 
         save_changes(new_user)
         response_object = {
@@ -51,6 +41,13 @@ def get_all_users():
 
 def get_a_user(public_id):
     return User.query.filter_by(public_id=public_id).first()
+
+def edit_user(id, edit_data):
+    to_edit = User.query.filter_by(id=id).first()
+    for key, value in edit_data.items():
+        setattr(to_edit, key, value)
+    save_changes(to_edit)
+    return to_edit
 
 
 def save_changes(data):

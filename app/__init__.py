@@ -4,6 +4,9 @@ from flask import Blueprint
 from .main.controller.user_controller import api as user_ns
 from .main.controller.auth_controller import api as auth_ns
 from .main.controller.tcs_controller import api as tcs_ns
+from .main.controller.review_controller import api as review_ns   
+
+
 
 blueprint = Blueprint('api', __name__)
 
@@ -18,3 +21,4 @@ api = Api(blueprint,
 api.add_namespace(user_ns, path='/user')
 api.add_namespace(auth_ns)
 api.add_namespace(tcs_ns, path="/tcs")
+api.add_namespace(review_ns, path="/review")

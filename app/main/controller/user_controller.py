@@ -1,31 +1,25 @@
 from flask import request, jsonify
 from flask_restplus import Resource
 
-from ..util.dto import UserDto
+from ..util.dto import UserDto, AuthDto, UserUpdateDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
 
 from ..util.decorator import admin_token_required, token_required
+from ..model import user
+from ..service.auth_helper import Auth
+from ..service.user_service import edit_user
 
 from ..api.continents import testingAPI
 
 
 api = UserDto.api
 _user = UserDto.user
+_auth = AuthDto.user_auth
+update_user = UserUpdateDto.user_update
 
 # create a parser for handling Authorization headers
 parser = api.parser()
-parser.add_argument('Authorization', location='headers')
-
-
-@api.route('/testing')
-class testing(Resource):
-
-    def get(self):
-        response_object = {
-            'message': testingAPI,
-            'Response': 200
-        }
-        return response_object
+parser.add_argument('Authorization', location=' ')
 
 
 @api.route('/')
@@ -69,6 +63,27 @@ class User(Resource):
         else:
             return user
 
+@api.route('/me')
+class GetMe(Resource):
+
+    @api.expect(parser)
+    # @api.response(401, 'Not authorized')
+    # @token_required
+    def get(self):
+        auth_token = request.headers.get('Authorization')
+        me = Auth.get_logged_in_user(auth_token)
+        return me
+
+@api.route('/edit')
+class Edit(Resource):
+    
+    @api.marshal_with(update_user)
+    @api.expect(parser)
+    def put(self):
+        me = Auth.get_logged_in_user(request.headers.get('Authorization'))
+        data = request.json
+        return edit_user(me[0]['data']['user_id'], data)
+        
 
 @api.route('/test')
 class Test(Resource):

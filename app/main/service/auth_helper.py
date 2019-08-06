@@ -42,7 +42,8 @@ class Auth:
                     response_object = {
                         'status': 'success',
                         'message': 'Successfully logged in',
-                        'Authorization': auth_token.decode()
+                        'Authorization': auth_token.decode(),
+                        ############public id
                     }
                     return response_object, 200
 
@@ -84,8 +85,8 @@ class Auth:
             return response_object, 403
 
     @staticmethod
-    def get_logged_in_user(new_request):
-        auth_token = new_request.headers.get('Authorization')
+    def get_logged_in_user(auth_token):
+        
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
@@ -94,7 +95,10 @@ class Auth:
                     'status': 'success',
                     'data': {
                         'user_id': user.id,
+                        'name': user.name,
+                        'username': user.username,
                         'email': user.email,
+                        'bio': user.bio,
                         'admin': user.admin,
                         'registered_on': str(user.registered_on)
                     }
