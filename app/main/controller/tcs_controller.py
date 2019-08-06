@@ -66,15 +66,15 @@ class Tcs(Resource):
         data = request.json
         auth_token = request.headers.get('Authorization')
         user = Auth.get_logged_in_user(auth_token)
-        return edit_tcs(data, user)
+        print('got here')
+        return edit_tcs(tcs_id, data, user)
 #==================================================================================================================================================
     @api.doc("delete tcs by id")
+    @api.marshal_with(tcsDetail)
 #    @token_required
     def delete(self, tcs_id):
-        if g.user.get("authored_by") != tcs_service.return_single_tcs(tcs_id).authored_by:
-            api.abort(401)
-
-        return tcs_service.delete_tcs(authored_by)
+        auth_token = request.headers.get('Authorization')
+        return tcs_service.delete_tcs(tcs_id, auth_token)
 
 
 @api.route("/filter_continent")
